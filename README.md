@@ -30,7 +30,7 @@ merge_values
 * Clone the repo and change to the repo directory
 
 ```console
-git clone git@github.com:cloud-simple/helm-values-from-file.git && cd helm-values-from-file
+git clone https://github.com/cloud-simple/helm-values-from-file.git && cd helm-values-from-file
 ```
 
 * Run the following command to set the environment variable `env` (with flag `--set env=develop`) and see how default values (from `merge_values/values.yaml` file) are merged with values from the file corresponding to the environment (`merge_values/values-develop.yaml`)
