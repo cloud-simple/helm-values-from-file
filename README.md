@@ -80,6 +80,10 @@ data:
 
 * Run the following command without setting the environment variable `env` and see how default values are used
 
+> **Note**
+>
+> The default value for `env` variable is `main` (as defined in `merge_values/values.yaml` file), and custom values file corresponding to the `main` environment is `values-main.yaml`, which doesn't exist, buut this situation is processed correctly
+
 ```console
 helm install --debug --dry-run test-merge ./merge_values
 ```
