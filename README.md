@@ -31,7 +31,7 @@ merge_values
   * `values.yaml` - file with default values
   * `values-develop.yaml` - file with values for custom `develop` environment
 * When we install the helm chart we can pass to `helm install` command (e.g. with `--set` flag) the value for `env` variable corresponding to the custom environment (`develop` in our case)
-* Then we can use named template `read_values_from_file` (defined within `templates/_helpers.tpl` file) in any of our helm templates to have access to values defined in the custom environment file set with the passed `env` variable to the `helm install` command
+* Then we can use named template `read_values_from_file` (defined within `templates/_helpers.tpl` file) in any of our helm templates to have access to values defined in the custom environment file (custom environment is set with the passed `env` variable to the `helm install` command)
 * The values from `values-develop.yaml` and `values.yaml` files will be merged and available to use throughout the helm template
 * Named template `read_values_from_file` is defined within `templates/_helpers.tpl` file
 
