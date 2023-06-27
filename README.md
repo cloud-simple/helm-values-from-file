@@ -55,7 +55,7 @@ merge_values
 {{- $v := merge $d.envValues $d.Values }}
 ```
 
-* `$d`  dictionary is passed to the named template as current context (to have access to `.Values.env` and `.Files.Glob`) and used to return values read from custom file corresponding to the custom environment
+* `$d`  dictionary is passed to the named template as current context (to have access to `.Values.env` and `.Files.Glob`) and used to return values read from file corresponding to the custom environment
 
 ## How to use
 
