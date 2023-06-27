@@ -1,0 +1,6 @@
+env: dev-NOT-develop
+meta:
+  env: This is a value for Metadata Environment variable from custom file
+  idea: To be able to read values from custom file (e.g. indentified with help of 'env' variable passed with --set flag) and merge them with other values 
+  description: When we have a special vaiable, let's say 'env', which define the deployment environment, we would like to look for a file with values corresponding to that environment and read values from it
+replicas: 2

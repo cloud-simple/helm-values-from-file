@@ -1,0 +1,12 @@
+{{- $d := dict "Values" .Values "Files" .Files }}
+{{- include "read_values_from_file" $d }}
+{{- $v := merge $d.envValues $d.Values }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+data:
+  env: {{ .Values.env }}
+  filename: {{ cat "values-" .Values.env ".yaml" | nospace }}
+  merged-values: |
+    {{ $v | toString }}

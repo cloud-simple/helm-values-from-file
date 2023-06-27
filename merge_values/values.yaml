@@ -1,0 +1,5 @@
+env: main
+meta:
+  env: This is default value for Metadata Environment variable 
+replicas: 1
+some: not_to_override
