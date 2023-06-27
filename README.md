@@ -36,15 +36,15 @@ merge_values
 * Named template `read_values_from_file` is defined within `templates/_helpers.tpl` file
 
 ```console
-     1	{{- define "read_values_from_file" }}
-     2	{{- $filename := cat "values-" .Values.env ".yaml" | nospace }}
-     3	{{- $dict := . }}
-     4	{{- $_ := set $dict "envValues" (dict) }}
-     5	{{- range $path, $_ := .Files.Glob $filename }}
-     6	{{- $envValues := $.Files.Get $path | fromYaml }}
-     7	{{- $_ := set $dict "envValues" $envValues }}
-     8	{{- end }}
-     9	{{- end }}
+{{- define "read_values_from_file" }}
+{{- $filename := cat "values-" .Values.env ".yaml" | nospace }}
+{{- $dict := . }}
+{{- $_ := set $dict "envValues" (dict) }}
+{{- range $path, $_ := .Files.Glob $filename }}
+{{- $envValues := $.Files.Get $path | fromYaml }}
+{{- $_ := set $dict "envValues" $envValues }}
+{{- end }}
+{{- end }}
 ```
 
 * To use it the following structures is necessary
