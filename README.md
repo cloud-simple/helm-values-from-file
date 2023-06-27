@@ -1,4 +1,4 @@
-> Here is an example of helm helper intended for getting values from custom file
+> Here is an example of **helm helper** intended for getting values from custom file
 
 ## How it works
 
@@ -25,9 +25,15 @@ merge_values
 ```
 </blockquote>
 
-* In the chart we have `values.yaml` file with default values and `values-develop.yaml` file with values for custom `develop` environment
-* When we install the helm chart and pass it the value for `env` variable corresponding to the custom environment (`develop` in our case), the values from `values-develop.yaml` and `values.yaml` files will be merged and available to use throughout templates
-* This is done with help of named templates `read_values_from_file` defined within `templates/_helpers.tpl` file
+* In the chart we have
+  * `templates/_helpers.tpl` - file with helm helpers, it particulary defines the named template `read_values_from_file`
+  * `templates/configmap.yaml` - exemplary helm template file for ConfigMap kubernetes object, which uses the above named template
+  * `values.yaml` - file with default values
+  * `values-develop.yaml` - file with values for custom `develop` environment
+* When we install the helm chart we can pass to `helm install` command (e.g. with `--set` flag) the value for `env` variable corresponding to the custom environment (`develop` in our case)
+* Then we can use named template `read_values_from_file` (defined within `templates/_helpers.tpl` file) in any of our helm templates to have access to values defined in the custom environment file set with the passed `env` variable to the `helm install` command
+* The values from `values-develop.yaml` and `values.yaml` files will be merged and available to use throughout the helm template
+* Named template `read_values_from_file` is defined within `templates/_helpers.tpl` file
 
 ```console
      1	{{- define "read_values_from_file" }}
@@ -41,13 +47,15 @@ merge_values
      9	{{- end }}
 ```
 
-* To use the above named templates the following structures is necessary
+* To use it the following structures is necessary
 
 ```
 {{- $d := dict "Values" .Values "Files" .Files }}
 {{- include "read_values_from_file" $d }}
 {{- $v := merge $d.envValues $d.Values }}
 ```
+
+* `$d`  dictionary is passed to the named template as current context (to have access to `.Values.env` and `.Files.Glob`) and used to return values  read from custom file corresponding to set environment
 
 ## How to use
 
