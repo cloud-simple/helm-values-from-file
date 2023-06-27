@@ -25,6 +25,30 @@ merge_values
 ```
 </blockquote>
 
+* In the chart we have `values.yaml` file with default values and `values-develop.yaml` file with values for custom `develop` environment
+* When we install the helm chart and pass it the value for `env` variable corresponding to the custom environment (`develop` in our case), the values from `values-develop.yaml` and `values.yaml` files will be merged and available to use throughout templates
+* This is done with help of named templates `read_values_from_file` defined within `templates/_helpers.tpl` file
+
+```console
+     1	{{- define "read_values_from_file" }}
+     2	{{- $filename := cat "values-" .Values.env ".yaml" | nospace }}
+     3	{{- $dict := . }}
+     4	{{- $_ := set $dict "envValues" (dict) }}
+     5	{{- range $path, $_ := .Files.Glob $filename }}
+     6	{{- $envValues := $.Files.Get $path | fromYaml }}
+     7	{{- $_ := set $dict "envValues" $envValues }}
+     8	{{- end }}
+     9	{{- end }}
+```
+
+* To use the above named templates the following structures is necessary
+
+```
+{{- $d := dict "Values" .Values "Files" .Files }}
+{{- include "read_values_from_file" $d }}
+{{- $v := merge $d.envValues $d.Values }}
+```
+
 ## How to use
 
 * Clone the repo and change to the repo directory
