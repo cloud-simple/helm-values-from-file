@@ -1,4 +1,4 @@
-> Here an example of helm helper provided to get values from custom file
+> Here is an example of helm helper intended for getting values from custom file
 
 ## How it works
 
